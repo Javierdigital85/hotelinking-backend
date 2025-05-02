@@ -34,16 +34,25 @@ npm install
 ```
 
 3. Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
-   PORT=8000
-   DB_USERNAME=tu_usuario_mysql
-   DB_PASSWORD=tu_contraseña_mysql
-   DB_NAME=hotelinking_db
-   DB_HOST=127.0.0.1
+
+```env
    DIALECT=mysql
+   DB_USERNAME=hotelinking_mysql
+   DB_PASSWORD=hotelinking_mysql
+   DB_ROOT_PASSWORD=rootpass_hotelinking
+   DB_NAME=hotelinking_db
+   HOST=127.0.0.1
+   DB_PORT=3306
+   SECRET=hotelinking
+```
 
-4. Si deseas usar Docker:
+4. Asegúrate de tener Docker instalado y el archivo `docker-compose.yml` para correr la base de datos y el servidor juntos.
 
-Asegúrate de tener Docker instalado y configura un archivo `docker-compose.yml` para correr la base de datos y el servidor juntos.
+Luego ejecuta el comando:
+
+```bash
+docker-compose up -d
+```
 
 5. Insertar ofertas de ejemplo en la base de datos ejecutando el siguiente comando:
 
