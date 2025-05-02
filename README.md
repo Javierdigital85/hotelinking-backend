@@ -24,7 +24,7 @@ Puedes descargarlos desde [nodejs.org](https://nodejs.org/).
 
 ```bash
 git clone https://github.com/Javierdigital85/hotelinking-backend
-cd Hotelinking-backend
+cd hotelinking-backend
 ```
 
 2. Instala las dependencias:
