@@ -53,6 +53,7 @@ export const login: RequestHandler = async (req, res): Promise<void> => {
     };
 
     const token = generateToken(payload);
+    user.dataValues = { ...user.dataValues, token };
 
     console.log("User encontrado:", user);
     console.log("Payload:", payload);
@@ -66,7 +67,7 @@ export const login: RequestHandler = async (req, res): Promise<void> => {
     res.status(200).send({ token, ...payload });
     return;
   } catch (error) {
-    const err = error as Error; // Casting explícito a Error
+    const err = error as Error;
     console.error("Error during login:", err.message);
     res
       .status(500)
