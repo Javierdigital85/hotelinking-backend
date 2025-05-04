@@ -90,8 +90,9 @@ npm run test:integration
 
 - `POST /api/users/register`: Registra un nuevo usuario.
 - `POST /api/users/login`: Inicia sesión.
-- `GET /api/users/:id`: Obtiene un usuario por su ID.
+- `GET /api/users/user/:id`: Obtiene un usuario por su ID.
 - `GET /api/users/me`: Obtiene la información del usuario autenticado (requiere token).
+- `POST /api/users/logout`: Cierra la sesión.
 
 ### Ofertas
 
