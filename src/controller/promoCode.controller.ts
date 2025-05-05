@@ -13,7 +13,7 @@ export const createPromoCode: RequestHandler = async (req, res) => {
 
     if (alreadyExists) {
       res
-        .status(400)
+        .status(200)
         .json({ message: "You already have a Promo code", code: promoCode });
       return;
     }

@@ -61,7 +61,11 @@ describe("User Controller", () => {
       password: "hashedpassword123",
       hash: "somehash",
       _attributes: {},
-      dataValues: {},
+      dataValues: {
+        id: 1,
+        name: "Javier",
+        email: "javier@example.com",
+      },
       validatePassword: jest.fn().mockResolvedValue(true),
     };
     jest.spyOn(userService, "findUser").mockResolvedValue(mockUser);

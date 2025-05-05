@@ -113,9 +113,11 @@ describe("User Controller", () => {
       const res = mockResponse();
 
       const fakeUser = {
-        id: 1,
-        name: "Javier",
-        email: "javier@example.com",
+        dataValues: {
+          id: 1,
+          name: "Javier",
+          email: "javier@example.com",
+        },
         validatePassword: jest.fn().mockResolvedValue(true),
       };
 
