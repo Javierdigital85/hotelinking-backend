@@ -4,6 +4,11 @@ import * as offersService from "../services/ofertas.service";
 export const createOffer: RequestHandler = async (req, res) => {
   try {
     const { title, details } = req.body;
+    if (!title || !details) {
+      res.status(400).json({ message: "Title and details are required" });
+      return;
+    }
+
     const createOffer = await offersService.create(title, details);
     res
       .status(201)

@@ -5,7 +5,7 @@ export const createPromoCode: RequestHandler = async (req, res) => {
   try {
     const { userId, offerId } = req.body;
     if (!userId || !offerId) {
-      res.status(400).send("Missing required fields");
+      res.status(400).json({message:"userId and offerId are required"});
       return;
     }
     const { alreadyExists, promoCode } =

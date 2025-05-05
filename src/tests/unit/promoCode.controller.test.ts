@@ -1,15 +1,19 @@
-import { createPromoCode, redeemCode } from "../../controller/promoCode.controller";
+import {
+  createPromoCode,
+  redeemCode,
+} from "../../controller/promoCode.controller";
 import * as promoCodeService from "../../services/promoCode.service";
 
 const mockReq: any = {};
 const mockRes: any = {
   status: jest.fn().mockReturnThis(),
   json: jest.fn(),
-  send: jest.fn()
+  send: jest.fn(),
 };
 
 beforeEach(() => {
   jest.clearAllMocks();
+  jest.spyOn(console, "error").mockImplementation(() => {}); // Silenciar todos los console.error
 });
 
 describe("createPromoCode controller", () => {
@@ -19,14 +23,16 @@ describe("createPromoCode controller", () => {
     await createPromoCode(mockReq, mockRes);
 
     expect(mockRes.status).toHaveBeenCalledWith(400);
-    expect(mockRes.send).toHaveBeenCalledWith("Missing required fields");
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "userId and offerId are required",
+    });
   });
 
   it("should return 200 if promo code already exists", async () => {
     mockReq.body = { userId: 1, offerId: 2 };
     jest.spyOn(promoCodeService, "generatePromoCode").mockResolvedValue({
       alreadyExists: true,
-      promoCode: "EXISTING123"
+      promoCode: "EXISTING123",
     });
 
     await createPromoCode(mockReq, mockRes);
@@ -34,7 +40,7 @@ describe("createPromoCode controller", () => {
     expect(mockRes.status).toHaveBeenCalledWith(200);
     expect(mockRes.json).toHaveBeenCalledWith({
       message: "You already have a Promo code",
-      code: "EXISTING123"
+      code: "EXISTING123",
     });
   });
 
@@ -42,7 +48,7 @@ describe("createPromoCode controller", () => {
     mockReq.body = { userId: 1, offerId: 2 };
     jest.spyOn(promoCodeService, "generatePromoCode").mockResolvedValue({
       alreadyExists: false,
-      promoCode: "NEW123"
+      promoCode: "NEW123",
     });
 
     await createPromoCode(mockReq, mockRes);
@@ -50,7 +56,7 @@ describe("createPromoCode controller", () => {
     expect(mockRes.status).toHaveBeenCalledWith(201);
     expect(mockRes.json).toHaveBeenCalledWith({
       message: "Promo code successfully generated",
-      code: "NEW123"
+      code: "NEW123",
     });
   });
 
@@ -64,7 +70,7 @@ describe("createPromoCode controller", () => {
 
     expect(mockRes.status).toHaveBeenCalledWith(500);
     expect(mockRes.json).toHaveBeenCalledWith({
-      message: "Error generating promo code"
+      message: "Error generating promo code",
     });
   });
 });
@@ -77,7 +83,7 @@ describe("redeemCode controller", () => {
 
     expect(mockRes.status).toHaveBeenCalledWith(400);
     expect(mockRes.json).toHaveBeenCalledWith({
-      message: "Missing promo code"
+      message: "Missing promo code",
     });
   });
 
@@ -89,7 +95,7 @@ describe("redeemCode controller", () => {
 
     expect(mockRes.status).toHaveBeenCalledWith(404);
     expect(mockRes.json).toHaveBeenCalledWith({
-      message: "Promo code not found"
+      message: "Promo code not found",
     });
   });
 
@@ -105,7 +111,7 @@ describe("redeemCode controller", () => {
     expect(mockRes.status).toHaveBeenCalledWith(200);
     expect(mockRes.json).toHaveBeenCalledWith({
       message: "Promo code successfully redeemed",
-      promo: promoMock
+      promo: promoMock,
     });
   });
 
@@ -119,7 +125,7 @@ describe("redeemCode controller", () => {
 
     expect(mockRes.status).toHaveBeenCalledWith(500);
     expect(mockRes.json).toHaveBeenCalledWith({
-      message: "Error redeeming promo code"
+      message: "Error redeeming promo code",
     });
   });
 });
